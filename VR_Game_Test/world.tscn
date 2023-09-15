@@ -1,0 +1,44 @@
+[gd_scene load_steps=3 format=3 uid="uid://byavwxqy7h23d"]
+
+[ext_resource type="Script" path="res://addons/godot-xr-tools/xr/start_xr.gd" id="1_fo1jm"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3evhl"]
+albedo_color = Color(0.74902, 0.513726, 0.815686, 1)
+metallic = 0.42
+roughness = 0.55
+
+[node name="World" type="Node3D"]
+
+[node name="XROrigin3D" type="XROrigin3D" parent="."]
+
+[node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+current = true
+
+[node name="XRController3D_Left" type="XRController3D" parent="XROrigin3D"]
+tracker = &"left_hand"
+
+[node name="OpenXRHand" type="OpenXRHand" parent="XROrigin3D/XRController3D_Left"]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="XROrigin3D/XRController3D_Left/OpenXRHand"]
+size = Vector3(0.1, 0.1, 0.1)
+
+[node name="XRController3D_Right" type="XRController3D" parent="XROrigin3D"]
+tracker = &"right_hand"
+
+[node name="OpenXRHand" type="OpenXRHand" parent="XROrigin3D/XRController3D_Right"]
+hand = 1
+
+[node name="CSGBox3D" type="CSGBox3D" parent="XROrigin3D/XRController3D_Right/OpenXRHand"]
+size = Vector3(0.1, 0.1, 0.1)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(29.8673, 0, 0, 0, 0.55939, 0, 0, 0, 31.8262, 0, -1.40827, 0)
+material_override = SubResource("StandardMaterial3D_3evhl")
+use_collision = true
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="CSGBox3D"]
+transform = Transform3D(0.0334814, 0, 0, 0, 1.38822, 1.12631, 0, -0.0197965, 0.0244, 0, 0, 0)
+
+[node name="XRToolsStartXR" type="Node" parent="."]
+script = ExtResource("1_fo1jm")
